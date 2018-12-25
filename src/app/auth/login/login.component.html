@@ -1,3 +1,44 @@
-<p>
-  login works!
-</p>
+<section class="login-form">
+  <form fxLayout="column" fx fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+        <mat-label>
+          Your email
+        </mat-label>
+        <mat-error *ngIf="emailInput.value.length === 0; else elseTemplate">
+          Can't be empty
+        </mat-error>
+        <ng-template #elseTemplate>
+          <mat-error>
+            Please enter a valid email
+          </mat-error>
+        </ng-template> 
+        <input 
+          type="email" 
+          matInput 
+          formControlName="email"
+          email
+          required
+          #emailInput>  
+      </mat-form-field>
+      <mat-form-field appearance="outline" hintLabel="Must contain at least 6 characters">
+        <mat-label>
+          Your password
+        </mat-label>
+        <mat-error>
+          Enter a valid password ({{ 6 - passwordInput.value.length  }} character{{ passwordInput.value.length === 5 ? '' : 's' }} remain)
+        </mat-error>
+        <input 
+          type="password" 
+          matInput
+          formControlName="password"
+          required
+          minlength="6"
+          #passwordInput
+          >
+        <mat-hint align="end" >
+           {{ passwordInput.value.length }} / 6
+        </mat-hint>   
+      </mat-form-field>
+      <button type="submit"  mat-raised-button color="primary" style="margin-top: 20px">Loggin</button>
+  </form>
+</section>
